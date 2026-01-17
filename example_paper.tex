@@ -1,0 +1,700 @@
+%%%%%%%% ICML 2026 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+
+\documentclass{article}
+
+% Recommended, but optional, packages for figures and better typesetting:
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs} % for professional tables
+\usepackage{multirow}
+
+% hyperref makes hyperlinks in the resulting PDF.
+% If your build breaks (sometimes temporarily if a hyperlink spans a page)
+% please comment out the following usepackage line and replace
+% \usepackage{icml2026} with \usepackage[nohyperref]{icml2026} above.
+\usepackage{hyperref}
+
+
+% Attempt to make hyperref and algorithmic work together better:
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% Use the following line for the initial blind version submitted for review:
+\usepackage{icml2026}
+
+% For preprint, use
+% \usepackage[preprint]{icml2026}
+
+% If accepted, instead use the following line for the camera-ready submission:
+% \usepackage[accepted]{icml2026}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+
+
+% if you use cleveref..
+\usepackage[capitalize,noabbrev]{cleveref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THEOREMS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+
+% \theoremstyle{definition}
+% \newtheorem{definition}{Definition}
+
+% \theoremstyle{plain}
+% \newtheorem{theorem}{Theorem}
+% \newtheorem{prop}{Proposition}  % 继承 theorem 计数器
+% \newtheorem{coro}{Corollary} % 同上
+% \newtheorem{lemma}{Lemma}
+% \newtheorem{remark}{Remark}
+% % 没编号的theorem等
+% \newtheorem*{theorem*}{Theorem}
+% \newtheorem*{prop*}{Proposition}  % 继承 theorem 计数器
+% \newtheorem*{coro*}{Corollary} % 同上
+% \newtheorem*{lemma*}{Lemma}
+% \newtheorem*{remark*}{Remark}
+% \newtheorem*{definition*}{Definition}
+\def\R{{\mathbb{R}}}
+\def\F{{\mathrm{F}}}
+\def\Z{{\mathrm{Z}}}
+\usepackage[most]{tcolorbox}
+\usepackage{algorithm} % 用于算法环境
+\makeatletter
+\let\algorithmic\relax
+\let\endalgorithmic\relax
+\makeatother
+\usepackage{algpseudocode}
+\usepackage{grffile}
+\newtcolorbox{boxedenv}[1][]{%
+  colback=blue!5!white, % 背景颜色
+  colframe=blue!75!black, % 边框颜色
+  fonttitle=\bfseries, % 标题字体
+  coltitle=black, % 标题颜色
+  sharp corners, % 直角边框
+  boxrule=0.5mm, % 边框粗细
+  title=#1 % 标题
+}
+
+% Todonotes is useful during development; simply uncomment the next line
+%    and comment out the line below the next line to turn off comments
+%\usepackage[disable,textsize=tiny]{todonotes}
+\usepackage[textsize=tiny]{todonotes}
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{Submission and Formatting Instructions for ICML 2026}
+
+\begin{document}
+
+\twocolumn[
+  \icmltitle{Submission and Formatting Instructions for \\
+    International Conference on Machine Learning (ICML 2026)}
+
+  % It is OKAY to include author information, even for blind submissions: the
+  % style file will automatically remove it for you unless you've provided
+  % the [accepted] option to the icml2026 package.
+
+  % List of affiliations: The first argument should be a (short) identifier you
+  % will use later to specify author affiliations Academic affiliations
+  % should list Department, University, City, Region, Country Industry
+  % affiliations should list Company, City, Region, Country
+
+  % You can specify symbols, otherwise they are numbered in order. Ideally, you
+  % should not use this facility. Affiliations will be numbered in order of
+  % appearance and this is the preferred way.
+  \icmlsetsymbol{equal}{*}
+
+  \begin{icmlauthorlist}
+    \icmlauthor{Firstname1 Lastname1}{equal,yyy}
+    \icmlauthor{Firstname2 Lastname2}{equal,yyy,comp}
+    \icmlauthor{Firstname3 Lastname3}{comp}
+    \icmlauthor{Firstname4 Lastname4}{sch}
+    \icmlauthor{Firstname5 Lastname5}{yyy}
+    \icmlauthor{Firstname6 Lastname6}{sch,yyy,comp}
+    \icmlauthor{Firstname7 Lastname7}{comp}
+    %\icmlauthor{}{sch}
+    \icmlauthor{Firstname8 Lastname8}{sch}
+    \icmlauthor{Firstname8 Lastname8}{yyy,comp}
+    %\icmlauthor{}{sch}
+    %\icmlauthor{}{sch}
+  \end{icmlauthorlist}
+
+  \icmlaffiliation{yyy}{Department of XXX, University of YYY, Location, Country}
+  \icmlaffiliation{comp}{Company Name, Location, Country}
+  \icmlaffiliation{sch}{School of ZZZ, Institute of WWW, Location, Country}
+
+  \icmlcorrespondingauthor{Firstname1 Lastname1}{first1.last1@xxx.edu}
+  \icmlcorrespondingauthor{Firstname2 Lastname2}{first2.last2@www.uk}
+
+  % You may provide any keywords that you find helpful for describing your
+  % paper; these are used to populate the "keywords" metadata in the PDF but
+  % will not be shown in the document
+  \icmlkeywords{Machine Learning, ICML}
+
+  \vskip 0.3in
+]
+
+% this must go after the closing bracket ] following \twocolumn[ ...
+
+% This command actually creates the footnote in the first column listing the
+% affiliations and the copyright notice. The command takes one argument, which
+% is text to display at the start of the footnote. The \icmlEqualContribution
+% command is standard text for equal contribution. Remove it (just {}) if you
+% do not need this facility.
+
+% Use ONE of the following lines. DO NOT remove the command.
+% If you have no special notice, KEEP empty braces:
+\printAffiliationsAndNotice{}  % no special notice (required even if empty)
+% Or, if applicable, use the standard equal contribution text:
+% \printAffiliationsAndNotice{\icmlEqualContribution}
+
+\begin{abstract}
+
+Object detection systems are essential in safety-critical applications, but they are vulnerable to object disappearance (OD) threat, in which valid objects become undetected under small input perturbations, creating serious risks. This paper addresses the problem of verifying the robustness of YOLO (You Only Look Once) networks against OD by proposing a three-step probabilistic verification framework: (1) estimating output ranges under a distribution of input perturbations, (2) formally verifying the Non-Maximum Suppression (NMS) process within these ranges, and (3) iteratively refining the results to reduce over-approximation. The framework scales to practical YOLO models. Both theoretical analysis and experimental results demonstrate that our method achieves comparable probabilistic guarantees and provides tighter Intersection-over-Union (IoU) lower bounds while requiring significantly fewer samples than existing methods.
+\end{abstract}
+
+\section{Introduction}
+
+Object detection~\citep{zhao2019object,zou2023object} is a fundamental computer vision task that combines object localization and classification. Neural network architectures, including YOLO (You Only Look Once)~\citep{redmon2016you,redmon2017yolo9000,farhadi2018yolov3,alexey2020yolov4}, Fast R-CNN~\citep{girshick2015fast}, and SSD~\citep{liu2016ssd,li2017fssd}, have achieved significant progress in both accuracy and computational efficiency, enabling their widespread deployment in real-world applications. Despite these advances, neural network-based detection systems remain vulnerable to
+minute, often imperceptible, input perturbations~\citep{im2022adversarial,lin2025out,goodfellow2015explaining,madry2018towards,dong2018boosting,carlini2017towards}. Of particular concern is the \textit{object disappearance (OD) problem}, in which minor input perturbations suppress the detection of valid objects. Such perturbations pose substantial risks in safety-critical domains, potentially leading to catastrophic consequences due to detection failures. Consequently, verifying the safety of object detection systems is crucial for their reliable deployment.
+
+
+To measure network robustness, verification methods are commonly employed. For a given network $\F$, an input $\boldsymbol{x}$, and a property function $\phi$, verification methods can be grouped into three categories:
+\newline
+\textbf{Formal Verification.} The goal is to find the maximum perturbation radius $\varepsilon$ such that $\phi(\F(\boldsymbol{x}'))=\phi(\F(\boldsymbol{x}))$ for all $\boldsymbol{x}' \in \mathcal{B}_p(\boldsymbol{x},\varepsilon)$, where $\mathcal{B}_p(\boldsymbol{x},\varepsilon)=\{\boldsymbol{x}':\|\boldsymbol{x}'-\boldsymbol{x}\|_p \le \varepsilon\}$ is the $p$-norm ball of radius $\varepsilon$ centered at $\boldsymbol{x}$. Alternatively, for a fixed $\varepsilon$, one can verify whether the property holds for all $\boldsymbol{x}' \in \mathcal{B}_p(\boldsymbol{x},\varepsilon)$. However, formal verification is NP-complete~\citep{katz2017reluplex}, making it infeasible for large-scale networks. Even state-of-the-art tools~\citep{zhang2022branch,zhang2022general} face challenges in handling networks with millions of neurons~\citep{VNN2023,VNN2024}.
+\newline
+\textbf{Probabilistic Verification.} Given a radius $\varepsilon$ and a tolerance $\alpha$, the goal is to verify whether $\mathrm{P}_{\boldsymbol{x}'\sim \mathcal{D}}(\phi(\F(\boldsymbol{x}'))=\phi(\F(\boldsymbol{x})))\ge 1-\alpha$, where $\mathcal{D}$ is a distribution over $\mathcal{B}_p(\boldsymbol{x},\varepsilon)$. Although this approach leverages probabilistic guarantees to reduce verification time and memory, its reliance on processing internal network nodes prevents it from scaling to larger network architectures. Representative works include~\citep{weng2019proven,boetius2025solving}. 
+% However, these methods typically require white-box access to network internals and still face scalability challenges for very large architectures.
+\newline
+\textbf{PAC Verification.} Given $\varepsilon$, $\alpha$, and $\beta$, the goal is to verify whether $\mathrm{P}_{\boldsymbol{x}'\sim \mathcal{D}}(\phi(\F(\boldsymbol{x}'))=\phi(\F(\boldsymbol{x})))\ge 1-\alpha$ holds with confidence at least $1-\beta$. PAC methods rely on sampling and do not require access to internal network nodes, which allows them to scale further to larger models and datasets. Representative works include~\citep{Tran2023quantitative,park2020pac,li2022towards,blohm2025probably}.
+
+Verifying object detection networks with these methods, however, presents additional challenges beyond the large parameter scales:
+\newline
+(1) \textbf{Post-Processing Stage}: Critical post-processing steps, such as Non-Maximum Suppression (NMS)~\citep{neubeck2006efficient}, generally fall outside the scope of current formal verification methods~\citep{cohen2024verification,elboher2024formalverificationdeepneural};
+\newline
+(2) \textbf{Large Input-Output Spaces}: The dimensionality of the detection inputs and outputs even renders PAC-based methods~\citep{li2022towards,blohm2025probably,haussler1987netsAS} computationally infeasible. 
+
+Due to these limitations, even recent verification methods specifically designed for object detection~\citep{cohen2024verification,elboher2024formalverificationdeepneural} are restricted to simplified models or do not account for complex operations such as NMS. To address this gap, we propose a PAC-based \textbf{O}bject \textbf{D}etection \textbf{P}robabilistic \textbf{V}erification (ODPV) framework for YOLO networks under OD threats. To our knowledge, \textbf{this is the first framework that effectively verifies the robustness of the original object detection networks at a practical scale}. Although PAC verification cannot provide deterministic guarantees, it currently offers the most practical means to validate YOLO in a reasonable time.
+
+
+Our methodology includes three main components: (1) estimating output ranges under input perturbations, (2) formally verifying NMS within the estimated output space, and (3) iteratively refining verification results. We implement our approach and evaluate it on standard benchmarks. Our main contributions are as follows.
+
+(1) We formally define the PAC verification problem of the OD threat in object detection and propose a novel verification approach to address it.
+\newline
+(2) We implement a complete verification process that includes the NMS step, which has been under-explored in previous work, and provide probabilistic guarantees for each step.
+\newline
+(3) We conduct experiments on widely used networks and datasets to evaluate our proposed method. We demonstrate that our method requires fewer samples to achieve comparable probabilistic guarantees and tighter certified Intersection-over-Union (IoU) bounds.
+
+In summary, we are the first to address the challenges of verifying large-scale detection networks and to provide an efficient probabilistic verification method.
+
+\begin{remark}
+    We emphasize an important distinction: Our work differs from randomized smoothing in the type of guarantee it provides~\citep{cohen2019certified,yang2020randomized}. Randomized smoothing establishes robustness for modified, "smoothed" classifiers, not the original detector. In contrast, we leave the network unchanged and provide statistical guarantees for the original model.
+\end{remark}
+\section{Related Work}
+
+
+\textbf{Object detection.}  
+Early detectors relied on hand-crafted features such as HOG~\citep{dalal2005histograms} and sliding windows~\citep{viola2001rapid}, but lacked adaptability. CNN-based approaches transformed feature extraction; R-CNN variants~\citep{girshick2014rich,ren2015faster} combined region proposals with deep learning methods. More recent approaches such as YOLO~\citep{redmon2016you,redmon2017yolo9000,farhadi2018yolov3,bochkovskiy2020yolov4} and SSD~\citep{liu2016ssd,liu2017delving} achieved real-time detection in complex scenarios.
+
+
+\textbf{Verification techniques for Neural Networks.}
+Formal verification determines whether a property holds under given input constraints. State-of-the-art tools~\citep{katz2017reluplex,katz2019marabou,zhang2022general,zhang2018efficient} employ Branch-and-Bound, combining relaxations~\citep{singh2019abstract,bak2021nnenum}, bound propagation~\citep{wang2018formal,weng2018towards,wang2018efficient,gowal2019scalable}, and constraint solving~\citep{khedr2021peregrinn,ehlers2017formal,henriksen2020efficient,kouvaros2021towards}. 
+However, for large networks such as YOLO (with $640\times480\times3$ inputs), even basic bound propagation may require more than 5000 GB of memory, rendering formal verification infeasible in practice.
+To address scalability, probabilistic verification estimates the likelihood of property satisfaction. Sampling-based methods~\citep{webb2018statistical,cardelli2019robustness,mangal2019robustness,anderson2023data} provide probabilistic estimates, but may miss rare cases, thereby creating gaps between analysis and actual robustness. DeepPAC~\citep{li2022towards} approximates local network behavior with linear equations and high-confidence error bounds, but it requires prohibitively large sample sizes for models such as YOLO. Techniques like median smoothing~\citep{chiang2020detection} certify robustness for a modified, "smoothed" detector, whereas our approach directly verifies the original network.
+
+\noindent
+\textbf{Verification of Object Detection.}
+Current efforts mainly focus on small or simplified detectors. \citep{cohen2024verification} propagate bounds to certify IoU, while \citep{elboher2024formalverificationdeepneural} encode IoU into networks for existing verifiers. Both approaches ignore the NMS step and fail to scale to real-world detectors. Comprehensive verification of complete detection pipelines remains an open problem.
+
+
+\section{Preliminaries}
+
+\begin{figure}[t]
+    \centering
+    \begin{minipage}[t]{0.32\columnwidth}
+      \includegraphics[width=\columnwidth,trim=0 160 0 0, clip]{image/stop_before_nms.jpg}
+      \caption{(First Stage) The network tries to find all boxes that may contain objects. A subset of these boxes is shown here.}
+      \label{fig:image1}
+    \end{minipage}
+    \hfill % 用于两幅图像之间的空间
+    % 第二幅图像
+    \begin{minipage}[t]{0.32\columnwidth}
+      \includegraphics[width=\columnwidth,trim=0 160 0 0, clip]{image/stop_after_nms.jpg}
+      \caption{(Second Stage) Final output boxes selected by NMS include the corresponding label and its confidence score.}
+      \label{fig:image2}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.32\columnwidth}
+      \includegraphics[width=\columnwidth,trim=0 160 0 0, clip]{image/stop_attack.jpg}
+      \caption{Under imperceptible input perturbations, YOLO can no longer recognize these objects.}
+      \label{fig:image3}
+    \end{minipage}
+\end{figure}
+
+
+This section outlines the key stages of YOLO object detection, as shown in Fig.~\ref{fig:image1}-~\ref{fig:image3} with an image from the COCO validation dataset~\citep{lin2014microsoft} and defines the threat of OD.
+
+\subsection {Key Stages of YOLO Object Detection}
+\label{defyolo}
+\noindent
+{\bf Bounding Box Prediction (First Stage)}. 
+The YOLO network \(\F: \mathbb{R}^{d_0} \to \mathbb{R}^{d_L}\) processes an input \(\boldsymbol{x}\) (with dimension \(d_0\)) to generate an output \(\boldsymbol{y} = \F(\boldsymbol{x})\) (with dimension \(d_L\)). The output \(\boldsymbol{y}\) can be reformulated as a set of bounding boxes \(\{ box_i \}_{i=1}^{n_{\boldsymbol{x}}}\), where \(n_{\boldsymbol{x}}\) is a constant determined by the fixed input dimension.  
+Each bounding box \(box_i\) is represented as \((x_i, y_i, w_i, h_i, c_i, p_{i_1}, p_{i_2}, \dots, p_{i_n})\). Here, \((x_i, y_i)\) denotes the box's center coordinates, \((w_i, h_i)\) its width and height, \(c_i\) its confidence score, and \(p_{i_j}\) the probability of the object belonging to class \(j\) (for \(j \in [n]\), where \(n\) is the total number of classes). The class of \(box_i\) is assigned as \(\text{Class}(box_i) = \arg\max_{j \in [n]} p_{i_j}\). These boxes collectively identify possible object locations in the input image, as Figure~\ref{fig:image1} illustrates.
+
+
+{\bf Non-Maximum Suppression (Second Stage)}.
+Let \(\boldsymbol{y} = \F(\boldsymbol{x})\) be the output tensor from the first stage. The second stage processes \(\boldsymbol{y}\) by using an operator \(\mathrm{N}\) to select a subset of bounding boxes \(\{ box_{i_j} \}_{i_j \in [n_{\boldsymbol{x}}]} \subseteq \boldsymbol{y} = \{ box_i \}_{i=1}^{n_{\boldsymbol{x}}}\), forming the final YOLO output (Figure~\ref{fig:image2}).  
+The standard operator \(\mathrm{N}\) is NMS~\citep{neubeck2006efficient} in YOLO, which uses \(\boldsymbol{y}\) and predefined thresholds \(\eta, \iota \in (0,1)\) to select the final output. For simplicity, we denote this as \(\mathrm{N}(\boldsymbol{y})\), as \(\eta\) and \(\iota\) are fixed, so we omit them. NMS selects boxes based on the following three rules:  
+\newline
+(n1): If $i_j\in[n_{\boldsymbol{x}}]$ and $box_{i_j}\in \mathrm{N}(\boldsymbol{y})$, then it must satisfy $c_{i_j}\ge \iota$;
+\newline
+(n2): If $i_j\in[n_{\boldsymbol{x}}]$ satisfies $box_{i_j}\notin \mathrm{N}(\boldsymbol{y})$ and $c_{i_j}\ge\iota$, then there must exist a $box_{i_k}\in \mathrm{N}(\boldsymbol{y})$ such that $\mathrm{Class}(box_{i_j})=\mathrm{Class}(box_{i_k})$ and $c_{i_j}\le c_{i_k}$, $\mathrm{IoU}(box_{i_j}, box_{i_k})\ge \eta$;
+\newline
+(n3): If $i_j,i_k\in[n_{\boldsymbol{x}}]$ such that $box_{i_j},box_{i_k}\in \mathrm{N}(\boldsymbol{y})$ and $\mathrm{Class}(box_{i_j})=\mathrm{Class}(box_{i_k})$, then it must satisfy $\mathrm{IoU}(box_{i_j}, box_{i_k})<\eta$.
+
+The $\mathrm{IoU}(box_1, box_2) = \frac{\mathrm{Area}(box_1 \cap box_2)}{\mathrm{Area}(box_1 \cup box_2)}$ measures overlap between two boxes, where \(\mathrm{Area}(box_1 \cap box_2)\) and \(\mathrm{Area}(box_1 \cup box_2)\) denote the IoU areas.  
+The NMS-selected subset is unique and we focus on its properties, as implementation details are beyond our scope.
+
+\subsection{Object Disappearance Threat on Object Detection}
+\label{aaod}
+
+
+An object detection model successfully detects an object \(O\) in the image \(\boldsymbol{x}\) if there exists at least one \(box_i \in \mathrm{N}(\F(\boldsymbol{x}))\) satisfying:
+\(
+\mathrm{Class}(box_i) = \mathrm{Class}(box_{\mathrm{gt}})\) and \(\mathrm{IoU}(box_i, box_{\mathrm{gt}}) \geq \tau
+\), where \(\tau\) is a predefined IoU threshold and \(box_{\mathrm{gt}}\) is \(O\)'s ground truth bounding box. We define the OD threat as follows:
+
+\textbf{OD Threat Definition.} 
+Given ground truth box $box_{\mathrm{gt}}$, perturbation radius $\varepsilon$, IoU threshold $\tau$, and class $\mathrm{Class}(box_{\mathrm{gt}})$, OD occurs if there exists a perturbation $\boldsymbol{\delta}$ with $\|\boldsymbol{\delta}\|_p\le \varepsilon$ such that
+\[
+\max_{box_i \in \mathrm{N}(\F(\boldsymbol{x}+\boldsymbol{\delta}))}
+\Big[\mathrm{IoU}(box_i, box_{\mathrm{gt}})\cdot \mathbb{I}\left(\mathrm{Class}(box_i)=\mathrm{Class}(box_{\mathrm{gt}})\right)\Big] < \tau .
+\]
+where \(\mathbb{I}(\cdot)\) denotes an indicator function (returns $1$ if true, \(0\) otherwise).  
+
+
+
+\section{Verification Framework for Object Detection}
+
+In this section, we introduce the verification target and our verification approach.
+
+First, we formally define the OD PAC-Verification problem.
+\begin{definition}[OD PAC-Verification Problem]  
+    \label{def: od_verification_problem_1}  
+    Given input constraints \(\mathcal{C}\), IoU threshold \(\tau\), error rate $\alpha\in[0,1]$ and significance level $\beta\in[0,1]$ and ground truth box \(box_{\mathrm{gt}}\), verify whether with confidence at least $1-\beta$, the following holds:
+    $$\mathrm{P}_{\boldsymbol{x}\sim \mathcal{C}}\left(\exists box_i \in \mathrm{N}(\F(\boldsymbol{x})) \text{ s.t. } \left[ \mathrm{IoU}(box_i, box_{\mathrm{gt}}) \geq \tau \land \mathrm{Class}(box_i) = \mathrm{Class}(box_{\mathrm{gt}}) \right] \right) \ge 1-\alpha$$
+    If true, the system is deemed PAC-safe in \(\mathcal{C}\) under \(\tau\). This definition reduces to the OD Formal Verification Problem when $\alpha=0,\beta=0$. Here we use $\boldsymbol{x}\sim \mathcal{C}$ to denote that $\boldsymbol{x}$ is sampled from a distribution over the input constraint set $\mathcal{C}$.
+\end{definition} 
+
+\label{idea}
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[page=1,width=\textwidth, clip, trim=0 115 0 98]{image/framework.pdf}
+    \caption{Our verification framework for object detection networks. The green cube represents the network's \textbf{true but unknown output space} under input constraints. The yellow cube is the \textbf{over-approximated region} calculated by our method, which is probabilistically guaranteed to contain the true output space. Part 3 of our framework (Refinement) progressively shrinks the yellow region by identifying and excluding areas that do not intersect with the true output space, thereby tightening the verification bounds.}
+    \label{fig: framework}
+\end{figure*}
+
+Then, we propose a three-part verification framework (see Alg.~\ref{alg: framework} and Fig.~\ref{fig: framework}) to solve it:
+
+
+\begin{algorithm}[t]
+    \caption{Verification framework for the OD PAC-Verification problem}
+    \label{alg: framework}
+    \begin{algorithmic}[1]
+    \Require
+    \Statex  The network $\F$; the input constraints $\mathcal{C}$; the threshold in OD verification problem $\tau$ ; the threshold for Part Three $\kappa$; the number of refinement steps $T$; the ground truth bounding box $box_\mathrm{gt}$.
+    \Ensure     
+    \Statex Whether YOLO is safe under OD attack.
+    \State Get  $\mathcal{Z}$ over-approximating $\{\F(\boldsymbol{x})\}_{\boldsymbol{x}\in \mathcal{C}}$\Comment{Part One}
+    \Repeat
+    \If{$\forall {\boldsymbol{y}\in \mathcal{Z}},\exists box_i\in\mathrm{N}(\boldsymbol{y})$ such that $\mathrm{IoU}(box_i,box_\mathrm{gt})\ge\tau \wedge \mathrm{Class}(box_i)=q$}
+        \State \Return Safe. \Comment{$q=\mathrm{Class}(box_\mathrm{gt})$, Part Two}
+    \Else
+        \State Get $\boldsymbol{y}'\in \mathcal{Z}$ violating the specified property \Comment{Part Two}
+        \State $d_{\min}=\min_{\boldsymbol{x}\in \mathcal{C}}\|\F(\boldsymbol{x})-\boldsymbol{y}'\|_2$ \Comment{Part Three}
+        \State $\mathcal{Z}=\mathcal{Z}\setminus \mathcal{B}_2(\boldsymbol{y}',d_{\min})$ \Comment{Part Three} 
+    \EndIf
+    \Until {$d_{\min} \leq \kappa$ or refine $T$ steps}
+    \State \Return Unsafe \Comment{Part Three}
+    \end{algorithmic}
+\end{algorithm}
+
+\noindent  
+\textbf{Part 1: Network Output Approximation.}  
+For input \(\boldsymbol{x}^{(0)}\) and constraint \(\mathcal{C}\), approximate the output set \(\{\F(\boldsymbol{x})\}_{\boldsymbol{x} \in \mathcal{C}}\) with a regular region \(\mathcal{Z}\) (hyperrectangles/hyperspheres) such that:  
+\(
+\{\F(\boldsymbol{x})\}_{\boldsymbol{x} \in \mathcal{C}} \subseteq \mathcal{Z}  
+\). 
+
+\textbf{Part 2: NMS Verification.}  
+Verify whether, for all $\boldsymbol{y} \in \mathcal{Z}$, there exists a $box_i \in \mathrm{N}(\boldsymbol{y})$ that satisfies the OD safety property (Definition~\ref{def: od_verification_problem_1}). 
+If this holds, the detector is safe. 
+Otherwise, identify a $\boldsymbol{y}$ that violates the IoU or class-matching condition.
+
+
+\noindent  
+\textbf{Part 3: Counterexample Validation and Refinement.}  
+Compute \(d_{\min} = \min_{\boldsymbol{x} \in \mathcal{C}} \|\F(\boldsymbol{x}) - \boldsymbol{y}\|_2\). If \(d_{\min} \leq \kappa\) (with \(\kappa \geq 0\) as a tolerance), the system is unsafe. Otherwise, refine \(\mathcal{Z}\) by excluding \(\mathcal{B}_2(\boldsymbol{y}, d_{\min}) = \{\boldsymbol{y}' : \|\boldsymbol{y} - \boldsymbol{y}'\|_2 < d_{\min}\}\) as the regular region we obtained may be larger than the actual output space $\{\F(\boldsymbol{x})\}_{\boldsymbol{x}\in \mathcal{C}}$, and then go back to Part 2. Note that we limit Part 3 iterations for high-dimensional outputs to prevent computational overload. 
+
+\begin{remark}\label{remark: goal_2}
+    Because our goal is PAC verification, each of the three steps is implemented using probabilistic methods with probability guarantees, rather than exact computation, as shown in the next section.
+\end{remark}
+
+
+\section{Verification Method for YOLO Object Detection}
+\label{sx}
+
+We illustrate the application of the verification framework from Section~\ref{idea} to YOLO object detection. Because of YOLO's complexity and scale, formal verification becomes intractable; therefore, we adopt PAC verification, i.e. black-box verification via sampling. Proofs for Propositions, Lemmas, and Theorems are provided in the Appendix.
+
+We define the input constraint as $\mathcal{C}=\{\boldsymbol{x}:\|\boldsymbol{x}-\boldsymbol{x}^{(0)}\|_p\le \varepsilon\}$ for a given sample $\boldsymbol{x}^{(0)}$, norm $p\in \mathbb{Z}^+\cup\{\infty\}$, and perturbation radius $\varepsilon\in (0,1)$. 
+We consider a probability distribution over the input set $\mathcal{C}$, and write $\boldsymbol{x}\sim \mathcal{C}$ to denote that $\boldsymbol{x}$ is a sample drawn from this distribution.
+For convenience, we define the comparison $\boldsymbol{a}\le \boldsymbol{b}$ for vectors $\boldsymbol{a},\boldsymbol{b}\in\R^n$ to mean $\forall j\in[n]:\boldsymbol{a}_j\le \boldsymbol{b}_j$, where $\boldsymbol{a}_j$ is the $j$-th component of $\boldsymbol{a}$. Similarly, scalar-vector multiplication is defined element-wise.
+
+
+\subsection{Implementation Part 1 on YOLO}
+\label{part1}
+
+
+\begin{algorithm}[t]
+    \caption{Network Output Approximation (Part 1)}
+    \label{algforp1}
+    \begin{algorithmic}[1]
+    \Require    
+    \Statex  The neural network $\F$; the input constraints $\mathcal{C}$, $N_1,N_2\in\mathbb{Z}^+$, a threshold $\zeta$.
+    \Ensure     
+    \Statex The bounding box $\mathcal{Z}$.
+    \State $\{\boldsymbol{x}^{(i)}\}_{i=1}^{N_1}\gets$Randomly select $N_1$ points in $\mathcal{C}$.\Comment{Find the $\boldsymbol{v}_{\max}$}
+    \For { $j \in [d_L]$} \Comment{Find the $\boldsymbol{v}_{\max}$}
+    \State $(\boldsymbol{v}_{\max})_j\gets\max\{\max_{i}\{|\F(\boldsymbol{x}^{(i)})_j-\F(\boldsymbol{x}^{(0)})_j|\},\zeta\}$\Comment{Use $\zeta$ to prevent division by zero}
+    \EndFor
+    \State  $\{\boldsymbol{z}^{(i)}\}_{i=1}^{N_2}\gets$Randomly select $N_2$ points in $\mathcal{C}$. \Comment{Find the $c_1$}
+    \State $c_1\gets\max_{i\in[N_2],j\in[d_L]}\frac{|\F(\boldsymbol{z}^{(i)})-\F(\boldsymbol{x}^{(0)})|_j}{(\boldsymbol{v}_{\max})_j}$. \Comment{Find the $c_1$}
+    \State \Return $\mathcal{Z}\gets\{\F(\boldsymbol{x}^{(0)})+\boldsymbol{\epsilon}:|\boldsymbol{\epsilon}|\le c_1\boldsymbol{v}_{\max}\}$.
+    \end{algorithmic}
+\end{algorithm}
+
+
+
+Consider a network $\F: \R^{d_0} \to \R^{d_L}$ and an input constraint $\mathcal{C}$. In Part 1 of our approach, we aim to determine the range of $\{\F(\boldsymbol{x})\}_{\boldsymbol{x}\in \mathcal{C}}$ with a probabilistic guarantee.
+We first find a constant $c_1\in\R^+$ and a vector $\boldsymbol{v}_{\max}\in\R^{d_L}$ such that $\forall \boldsymbol{x}\in \mathcal{C}, c_1\boldsymbol{v}_{\max}\ge |\F(\boldsymbol{x})-\F(\boldsymbol{x}^{(0)})|$ holds element-wise. Then let $\mathcal{Z}=\{\F(\boldsymbol{x}^{(0)})+\boldsymbol{\epsilon}:|\boldsymbol{\epsilon}|\le c_1\boldsymbol{v}_{\max}\}$, and it is easy to see that $\{\F(\boldsymbol{x})\}_{\boldsymbol{x}\in \mathcal{C}}\subset \mathcal{Z}$.  
+
+As shown in Algorithm~\ref{algforp1}, we first randomly select $N_1$ samples from $\mathcal{C}$, and define $(\boldsymbol{v}_{\max})_j=\max\{\max_{i}\{|\F(\boldsymbol{x}^{(i)})_j-\F(\boldsymbol{x}^{(0)})_j|\},\zeta\}$, where $\zeta>0$ is a small constant to ensure all components are positive.
+When finding $c_1$, directly solving the problem $c_1=\min_{c\ge0} c\; \mathrm{s.t.}\; c\in \bigcap_{\boldsymbol{x}\in \mathcal{C}}\{|\F(\boldsymbol{x})-\F(\boldsymbol{x}^{(0)})|\le c\boldsymbol{v}_{\max}\}$ is infeasible. 
+Since each constraint is convex for $c$, by the $\mathrm{RCP}_N$~\citep{campi2009scenario}, we can get $c_1$ by randomly selecting $N_2$ samples $\{\boldsymbol{x}^{(i)}\}_{i=1}^{N_2}$ from $\mathcal{C}$, then we calculate $c_1$ by the following optimization problem:
+\begin{equation}
+\label{RC1}
+        % c_1= \min_{c\ge0} c \ \
+        % \mathrm{s.t.} \ \ c\in \cap_{i\in[N_2]}\{|\F(\boldsymbol{x}^{(i)})-\F(\boldsymbol{x}^{(0)})|\le c\boldsymbol{v}_{\max}\}
+        c_1 = \min_{c\ge0} c \quad
+\mathrm{s.t.} \quad |\F(\boldsymbol{x}^{(i)})-\F(\boldsymbol{x}^{(0)})|\le c\boldsymbol{v}_{\max}, \quad \forall i \in [N_2].
+\end{equation}
+
+
+\begin{prop}[probabilistic guarantee for Part 1]
+\label{prop: prob_guaranee_for_part_1_1} 
+For any $N_1>1$, let $\boldsymbol{v}_{\max}$ be a vector with positive components (e.g., as estimated from $N_1$ samples in Algorithm~\ref{algforp1}). If $c_1$ is computed based on this $\boldsymbol{v}_{\max}$ using $N_2\ge [\frac{2\ln 1/\beta}{\alpha}+2+\frac{2\ln2/\alpha}{\alpha}]$ samples as described in Algorithm~\ref{algforp1},
+then with probability $1-\beta$, we have: $\mathrm{P}_{\boldsymbol{x}\sim \mathcal{C}}\left(|\F(\boldsymbol{x})-\F(\boldsymbol{x}^{(0)})|\le c_1 \cdot \boldsymbol{v}_{\max} \right)\ge 1-\alpha$, which implies $\mathrm{P}_{\boldsymbol{x}\sim \mathcal{C}}\left(\F(\boldsymbol{x})\in \mathcal{Z} \right)\ge 1-\alpha$.
+\end{prop}
+
+\begin{remark}\label{remark:N_1_3}
+The probabilistic guarantee imposes no special requirements on $N_1$. We select $\boldsymbol{v}_{\max}$ in this way because a larger $N_1$ yields a tighter approximation of the true output range (Appendix~\ref{mgm}).
+\end{remark}
+
+
+\subsection{Implementation Part 2 on NMS}
+\label{part2}
+
+\begin{algorithm}[t]
+    \caption{NMS Verification (Part 2)}
+    \label{NMSyz}
+    \begin{algorithmic}[1]
+    \Require
+    \Statex  $\{\{box^k_i\}_{i=1}^{n_{\boldsymbol{x}}}\}_{k\in\Delta}$ reinterpreted from $\mathcal{Z}$; IoU threshold $\tau$; ground truth bounding box $box_\mathrm{gt}$.
+    \Ensure     
+    \Statex Either a non-empty safe set $Q(\mathcal{Z},\tau,box_\mathrm{gt})$, or an unsafe witness $\boldsymbol{z}\in \mathcal{Z}$.
+    \State $Q\gets\emptyset$.
+    \For{$i \in [n_{\boldsymbol{x}}]$}
+    \State Calculate $\tau_1(i,\mathcal{Z},box_{\mathrm{gt}})$ and $\tau_2(i,\mathcal{Z},box_{\mathrm{gt}})$ \label{line: tau} \Comment{Appendix \ref{app:nms}}%\ref{app:nms}
+    \State $\tau(i,\mathcal{Z},box_{\mathrm{gt}})\gets\min(\tau_1(i,\mathcal{Z},box_{\mathrm{gt}}),\tau_2(i,\mathcal{Z},box_{\mathrm{gt}}))$ \Comment{Lemma \ref{lemma: threshold_computaion_2}}
+        \If{$\tau(i,\mathcal{Z},box_{\mathrm{gt}})>\tau$}  $Q\gets Q\cup\{i\}$ \Comment{Lemma \ref{lemma: threshold_prop_1}}
+        \EndIf
+    \EndFor
+    \If {$Q\ne\emptyset$}  \Return (Safe, $Q$) 
+    \Else $\ i\gets\arg\max_{i\in [n_{\boldsymbol{x}}]}\{\tau(i,\mathcal{Z},box_{\mathrm{gt}})\}$ 
+    \EndIf
+    \State \Return (Unsafe, $\boldsymbol{z}$) \Comment{
+    $\boldsymbol{z}\in \mathcal{Z}$ such that its corresponding box $i$ leads to the value $\tau(i,\mathcal{Z},box_{\mathrm{gt}})$} 
+    \end{algorithmic}
+\end{algorithm}
+
+To better illustrate the NMS verification, we use an infinite index set $\Delta$ to enumerate all possible values in $\mathcal{Z}$, i.e., $\mathcal{Z} = \{\boldsymbol{z}^k\}_{k\in\Delta}$, where each $\boldsymbol{z}^k \in \mathcal{Z}$ is a possible output vector. Each $\boldsymbol{z}^k$ can be interpreted as a set of boxes $\{box^k_i\}_{i=1}^{n_{\boldsymbol{x}}}$ according to the YOLO output format. We assume that $box^k_i$ can be written \(box^k_i=(x^k_i, y^k_i, w^k_i, h^k_i, c^k_i, p^k_{i_1}, p^k_{i_2}, \dots, p^k_{i_n})\). 
+To soundly verify the NMS, we first define the safe set $Q(\mathcal{Z},\tau,box_{\mathrm{gt}})$, which contains indices of boxes that satisfy the NMS conditions. 
+\begin{definition}[Safe Set]
+\label{def: safe_set_2}
+The safe set $Q(\mathcal{Z},\tau,box_{\mathrm{gt}}) \subseteq [n_{\boldsymbol{x}}]$ and 
+$i\in Q(\mathcal{Z},\tau,box_{\mathrm{gt}})$ if and only if: 
+
+(1): $\forall k\in\Delta$, $\mathrm{Class}(box^k_i)=\mathrm{Class}(box_{\mathrm{gt}})$, $c^k_i\ge \iota$ and $\mathrm{IoU}(box^k_i,box_{\mathrm{gt}})\ge \tau$; 
+\newline
+(2): $\nexists k\in\Delta, n\in[n_{\boldsymbol{x}}]\setminus\{i\}$ such that $c^k_n\ge \iota$, $\mathrm{Class}(box^k_n)=\mathrm{Class}(box_{\mathrm{gt}})$, $c^k_{n}\ge c_{i}^k$, $\mathrm{IoU}(box^k_i,box^k_n)\ge\eta$, and $\mathrm{IoU}(box_{\mathrm{gt}},box^k_n)< \tau$.
+\end{definition}
+
+Then we can soundly verify the NMS by checking whether the safe set is empty.
+\begin{prop}[NMS Soundness Verification]
+\label{prop: sound_verification_2}
+For given $\mathcal{Z}$, $\tau$, and $box_{\mathrm{gt}}$, if $Q(\mathcal{Z},\tau,box_{\mathrm{gt}}) \neq \emptyset$, then for $\forall k\in\Delta:\exists box_i\in\mathrm{N}(\boldsymbol{z}^k),$ $s.t. \mathrm{IoU}(box_i,box_{\mathrm{gt}})\ge\tau \land \mathrm{Class}(box_i)=\mathrm{Class}(box_{\mathrm{gt}})$.
+\end{prop}
+
+According to this proposition, verification reduces to calculating the safe set.
+To calculate the safe set, we need the following key metric:
+\begin{definition}[Safe IoU Threshold]
+\label{def: safe_iou_3}
+The Safe IoU Threshold $\tau(i,\mathcal{Z},box_{\mathrm{gt}}) := \inf\{\tau' \in [0,1] | i \notin Q(\mathcal{Z},\tau',box_{\mathrm{gt}})\}$, where $\inf$ is the infimum operator. 
+\end{definition}
+
+The following lemmas about $\tau(i,\mathcal{Z},box_{\mathrm{gt}})$ can help us compute the safe set $Q(\mathcal{Z},\tau,box_{\mathrm{gt}})$.
+
+\begin{lemma}[Threshold Properties]
+\label{lemma: threshold_prop_1} $\tau < \tau(i,\mathcal{Z},box_{\mathrm{gt}}) \Rightarrow i \in Q(\mathcal{Z},\tau,box_{\mathrm{gt}})$
+\end{lemma}
+We can obtain $\tau(i,\mathcal{Z},box_{\mathrm{gt}})$ by solving the following optimization problem:
+
+\begin{lemma}[Threshold Computation]
+    \label{lemma: threshold_computaion_2} 
+    The threshold can be calculated as
+    $\tau(i,\mathcal{Z},box_{\mathrm{gt}}) = \min\{\tau_1(i,\mathcal{Z},box_{\mathrm{gt}}),{\tau}_2(i,\mathcal{Z},box_{\mathrm{gt}})\}$, where:
+    \begin{align*}
+    \tau_1(i,\mathcal{Z},box_{\mathrm{gt}}) &= \min_{k\in\Delta} \mathrm{IoU}(box^k_i,box_{\mathrm{gt}}) \cdot \mathbb{I}(\mathrm{Class}(box_i^k)=q) \cdot \mathbb{I}(c^k_i\ge\iota), q=\mathrm{Class}(box_{\mathrm{gt}}) \\
+    {\tau}_2(i,\mathcal{Z},box_{\mathrm{gt}}) &= \begin{cases} 
+    \min\limits_{k\in\Delta, n\neq i} \mathrm{IoU}(box^k_n,box_{\mathrm{gt}}) & \text{if } \exists (k,n) \text{ s.t. } \mathcal{C}_{kn}=1 \\
+    1 & \text{otherwise}
+    \end{cases}
+    \end{align*}
+    where constraint $\mathcal{C}_{kn} \equiv \mathbb{I}(c^k_n\ge\iota)\cdot\mathbb{I}(\mathrm{Class}(box_n^k)=q)\cdot\mathbb{I}(\mathrm{IoU}(box^k_i,box^k_n)\ge\eta)\cdot\mathbb{I}(c^k_{n}\ge c^k_{i})$.
+\end{lemma}
+Appendix~\ref{app:nms} shows how we encode the optimization problem in line~\ref{line: tau} of Algorithm~\ref{NMSyz} as a mixed-integer quadratic program (MIQP) and use the Gurobi solver to solve it. 
+
+\vspace{-2mm}
+\subsection{Implementation Part 3 on YOLO}
+\vspace{-2mm}
+\label{pt2}
+
+Part 3 of our framework refines the initial output approximation $\mathcal{Z}$. 
+When Part 2 detects a potential counterexample $\boldsymbol{y} \in \mathcal{Z}$, in part 3, we need to check whether $\boldsymbol{y}$ is actually reachable by $\F$ for some $\boldsymbol{x} \in \mathcal{C}$. 
+This is done by computing
+$d_{\min} = \min_{\boldsymbol{x} \in \mathcal{C}} \|\F(\boldsymbol{x}) - \boldsymbol{y}\|_2$.
+%If $d_{\min} > \kappa$ which is the, then $\boldsymbol{y}$ lies outside the true output set $\{\F(\boldsymbol{x})\}_{\boldsymbol{x} \in \mathcal{C}}$, and we refine $\mathcal{Z}$ by removing the ball $\mathcal{B}_2(\boldsymbol{y}, d_{\min})=\{\boldsymbol{y}'\mid \|\boldsymbol{y}'-\boldsymbol{y}\|_2< d_{\min}\}$.
+
+
+
+Due to the high dimensionality, even if $\boldsymbol{y} \in \{\F(\boldsymbol{x})\}_{\boldsymbol{x}\in\mathcal{C}}$, the $d_{\min}$ derived from the sampled outputs converges to zero very slowly as the sample size increases, so directly estimating $d_{\min}$ simply by taking the minimum distance from a set of sampled outputs $\{\F(\boldsymbol{x}^{(i)})\}$ to $\boldsymbol{y}$ may be unreliable.
+
+
+
+To address this, we introduce Algorithm~\ref{algforp3}, a two-step procedure for estimating $d_{\min}$ with probabilistic guarantees.  
+\textbf{Step One (Estimating C):} This step aims to characterize the local variability of the function $\F$ within the input constraint set $\mathcal{C}$. It computes a constant $C$ by repeatedly sampling pairs of points and observing the ratio $\frac{B'_i}{A'_i-B'_i}$.
+\textbf{Step Two (Estimating $d_{\min}$ using C):} Using the constant $C$ and a new set of $M_2$ samples, this step estimates $d_{\min}$ for the specific target vector $\boldsymbol{y}$. The formula $d_{\min}\gets\max\{\frac{B_m-C(A_m-B_m)}{1+2C},0\}$ leverages $C$ to provide a more conservative estimate of the minimum distance than $B_m$ (the minimum observed distance from the $M_2$ samples) alone.
+
+
+\begin{algorithm}[!t]
+    \caption{Counterexample Validation and Refinement (Part 3)}
+    \label{algforp3}
+    \begin{algorithmic}[1]
+    \Require
+    \Statex  The neural network $\F$; the input constraints $\mathcal{C}$, $N,M,M_2\in\mathbb{Z}^+$, a vector $\boldsymbol{y}$.
+    \Ensure     
+    \Statex Estimate $d_{\min}=\min_{\boldsymbol{x}\in\mathcal{C}}\|\boldsymbol{y}-\F(\boldsymbol{x})\|_2$.
+    \State $C\gets0$; $\{\boldsymbol{x}^{(i)}\}_{i=1}^{N}\gets$ Randomly select $N$ samples from $\mathcal{C}$ \Comment{Step One}
+    \For{$i \in [N]$}
+        \State $\{\boldsymbol{x}^{(i,j)}\}_{j=1}^M\gets$ Randomly select $M$ samples from $\mathcal{C}$ again \Comment{Step One}
+        \State $A'_i\gets\max_{j\in[M]}\|\F(\boldsymbol{x}^{(i,j)})-\F(\boldsymbol{x}^{(i)})\|_2, B'_i\gets\min_{j\in[M]}\|\F(\boldsymbol{x}^{(i,j)})-\F(\boldsymbol{x}^{(i)})\|_2$
+        % \State Let  $ \Comment{Step One}
+        \State $C\gets\max\{C,\frac{B'_i}{A'_i-B'_i}\}$ \Comment{Step One}
+    \EndFor
+    \State $\{\boldsymbol{x}^{(i)}\}_{i=1}^{M_2}\gets$Select $M_2$ samples from $\mathcal{C}$ \Comment{Step Two}
+    \State Let $A_m\gets\max_{i\in[M_2]}\|\F(\boldsymbol{x}^{(i)})-\boldsymbol{y}\|_2$, $B_m\gets\min_{i\in[M_2]}\|\F(\boldsymbol{x}^{(i)})-\boldsymbol{y}\|_2$ \Comment{Step Two}
+    \State \Return $d_{\min}\gets\max\{\frac{B_m-C(A_m-B_m)}{1+2C},0\}$ \Comment{Step Two}
+    \end{algorithmic}
+\end{algorithm}
+
+Let $\mathrm{V}(\boldsymbol{y},d_{\min})=\mathrm{P}_{\boldsymbol{x} \sim \mathcal{C}}(\F(\boldsymbol{x})\in \mathcal{B}_2(\boldsymbol{y},d_{\min}))$, and $\mathrm{V}(\boldsymbol{y},0)=0$. We use $\mathrm{V}(\boldsymbol{y},d_{\min})$ to measure the intersection between $\mathcal{B}_2(\boldsymbol{y},d_{\min})$ 
+and $\{\F(\boldsymbol{x})\}_{\boldsymbol{x} \in \mathcal{C}}$. We show that with high probability, the $\mathrm{V}(\boldsymbol{y},d_{\min})$ is very small.
+
+
+
+\begin{theorem}[probabilistic guarantee for Part 3]
+\label{theorem: part_3_guarantee_1}
+For any $\alpha,\beta,\delta,\epsilon\in(0,1)$ satisfying $(1-2\epsilon)^M-\delta>0$ and $N\cdot((1-2\epsilon)^M-\delta)>\frac{2}{\alpha}\ln(\frac{1}{\beta})+2+\frac{2}{\alpha}\ln(\frac{2}{\alpha})$, with the algorithm \ref{algforp3}, for any $\boldsymbol{y}$, with probability at least $1-e^{-2N\delta^2}-\beta-2(1-\epsilon)^{M_2}$ over steps one and two, we have $\mathrm{V}(\boldsymbol{y},d_{\min})\le\alpha$.
+\end{theorem}
+
+\begin{remark}\label{remark: 4}
+    Take $N=3000,M=10,M_2=2000$, and $\epsilon=1/200$, $\delta=0.1$, $\alpha,\beta=0.0099$, then $1-e^{-2N\delta^2}-\beta\ge0.99$ and $1-\alpha-2(1-\epsilon)^{M_2}\ge0.99$.
+\end{remark}
+
+We also provide a sound refinement algorithm for small networks, shown in Appendix~\ref{app:part3}.
+
+
+\vspace{-2mm}
+\subsection{The Probabilistic Guarantee for the Entire Algorithm}
+\vspace{-2mm}
+
+We prove that the whole algorithm implemented above has a probabilistic guarantee as follows, by combining proposition \ref{prop: prob_guaranee_for_part_1_1}, \ref{prop: sound_verification_2} and theorem \ref{theorem: part_3_guarantee_1}:
+
+\begin{theorem}
+\label{theorem:  full_guarateen_2}
+Using the notation from the three algorithms above. Given $\alpha,\beta,\delta,\epsilon\in(0,1)$ satisfying $(1-2\epsilon)^M-\delta>0$, $N\cdot((1-2\epsilon)^M-\delta)>\frac{2}{\alpha}\ln(\frac{1}{\beta})+2+\frac{2}{\alpha}\ln(\frac{2}{\alpha})$ and $N_2\ge [\frac{2\ln 1/\beta}{\alpha}+2+\frac{2\ln2/\alpha}{\alpha}]$. 
+Then, after executing the algorithms defined above, with any $\kappa$ in part 3, if for a sample $\boldsymbol{x}$, these algorithms output 'safe' after $T$ refinement turns, then with probability at least $1-T(e^{-2N\delta^2}+\beta+2(1-\epsilon)^{M_2})-\beta$ of parts one and three, we have $\mathrm{P}_{\boldsymbol{x}\sim \mathcal{C}}(\boldsymbol{x}\ \text{is safe})>1-(1+T)\alpha$.
+\end{theorem}
+
+If we take $N_1 = 30{,}000,N_2 = 5{,}000,N = 3{,}000,M = 10,M_2 = 2{,}000,\alpha = \beta = 0.0099$, $\epsilon = 1/200$, $\delta = 0.1$, we can achieve a $98\%$ probabilistic guarantee with $98\%$ confidence using only $37{,}000$ samples, which means with at least 98\% confidence, the probability of an OD event occurring under the given perturbation distribution is at most 2\%.
+
+\begin{remark}\label{remark: total_samples}
+Note all our theoretical guarantees depend only on the i.i.d. assumption and hold for any sampling distribution, not just uniform.
+\end{remark}
+
+\section{Experiments}\label{section: experiment}
+Our experiment consists of the evaluations of the bounds accuracy and the safety guarantee. Detailed experimental settings and more experimental results are provided in Appendix~\ref{app:exp details} to Appendix~\ref{app:ablation}.
+
+
+\begin{table*}[t]
+\centering
+\caption{Comparison of our method with $\mathrm{RCP}_N$. $\Delta_{\mathrm{PGD}}$ denotes the mean absolute difference of IoU lower bounds relative to the PGD attack. Bold values indicate the best performance.}
+\label{tab:main}
+\small
+\input{data/overview.tex}
+\end{table*}
+
+\begin{table*}[t]
+    \centering
+    \caption{Guarantee evaluation of our method with $\tau=0.5$ and $\varepsilon\in\{\tfrac{1}{255},\tfrac{2}{255}\}$ under $10^6$ uniform perturbations.
+    TPR/FPR: True/False Positive Rate.  
+    TNR/FNR: True/False Negative Rate.  
+    A detection is considered positive if verified robust by our method, and negative otherwise.  
+    Certified Robust Accuracy (CRA): percentage of detections verified robust that are indeed robust.  
+    Average Bounds Improvement (ABI): average gain in certified IoU lower bounds.}
+    \label{tab:guarantee}
+    \input{data/tpr_fpr_table.tex}
+\end{table*}
+
+\textbf{Basic setting.} 
+Our experiments used the medium and large versions of the YOLOv3, YOLOv5, YOLOv8 and YOLO11 models by Ultralytics~\citep{yolov5ultralytics}. We conduct verification on the COCO dataset~\citep{lin2014microsoft}, a widely used benchmark for object detection, and randomly select 100 validation images containing more than 520 objects. We use a uniform distribution for sampling, which is a common choice in the literature~\citep{li2022towards,cohen2024verification}. 
+The IoU threshold $\tau\in\{0.5, 0.7\}$, the constants in NMS are $\eta=0.45$ and $\iota=0.25$, which are commonly used in object detection tasks. In Appendix~\ref{app: other_attack} we also evaluate our method under other perturbation distributions (e.g., Gaussian, Salt and Pepper) on different threat models (e.g., False Appearance).
+We set $\zeta=0.001$ (Alg.~\ref{algforp1}) and $\kappa=0.01$ (Alg.~\ref{algforp3}).
+The perturbation radius is set to $\tfrac{1}{255}$ or $\tfrac{2}{255}$. Larger radii make the network overly fragile, enabling counterexamples to be found with very few samples, and thus eliminating meaningful differences between methods.
+
+\textbf{Baseline Selection.}  
+By Theorem~\ref{theorem:  full_guarateen_2}, our method achieves a 98\% probabilistic guarantee with 98\% confidence using only \textbf{37,000} samples. In contrast, $\mathrm{RCP}_N$ requires over \textbf{11,000,000} samples, while DeepPAC~\citep{li2022towards} requires over \textbf{100,000,000} samples and needs to solve LPs with more than $\mathbf{10^{12}}$ variables to achieve the same guarantee (see Appendix~\ref{app:exp details}), making both approaches impractical. Formal verification methods are also infeasible: existing tools~\citep{cohen2024verification,elboher2024formalverificationdeepneural} handle only 2-3 convolutional layers with 2-3 linear layers, far below the scale of YOLO, and cannot address its complex architecture or NMS. Therefore, \textbf{direct comparisons} with DeepPAC, $\mathrm{RCP}_N$, and formal verification are \textbf{not feasible}. Instead, we use $\mathrm{RCP}_N$ with $10^6$ samples (yielding weaker guarantees) as a baseline.
+
+\textbf{Bounds Accuracy.}  
+Table~\ref{tab:main} compares our method with $\mathrm{RCP}_N$, showing that our approach is both faster and more accurate. In particular, it achieves a smaller mean absolute difference between IoU lower bounds and the worst-case input found by the PGD attack ($\Delta_{\mathrm{PGD}}$), indicating tighter certified bounds. Figure~\ref{fig:bounds compare} further confirms this, as our bounds remain consistently closer to those of PGD.
+
+\textbf{Safety Guarantee.}  
+Table~\ref{tab:guarantee} further shows results under $10^6$ uniform perturbations: the certified robust accuracy (CRA) exceeds 98\%, and the false positive rate (FPR) remains very low, consistent with theory. The true positive rate (TPR) is lower, as expected since our certification is stricter than empirical robustness. Finally, the average bounds improvement (ABI) confirms that our method yields tighter certified IoU lower bounds.
+
+\textbf{Additional Experiments.} 
+We further evaluate (i) the effect of Part~3 (Appendix~\ref{app:part3 effect}), 
+(ii) an ablation study on hyperparameters (Appendix~\ref{app:ablation}), 
+(iii) real-world applications (Appendix~\ref{app:real world}), 
+and (iv) a comparison with median smoothing (Appendix~\ref{app:median}).
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth, clip, trim=60 146 76 164]{image/bound compare.pdf}
+    \caption{Lower bounds of the IoU between detected boxes and their corresponding ground-truth boxes under our method, $\mathrm{RCP}_N$, the square attack, and the PGD attack. Results are computed on YOLO11x with $\varepsilon=\tfrac{1}{255}$ and $\tau=0.5$. Each x-axis tick corresponds to an object in the COCO dataset.}
+    \label{fig:bounds compare}
+\end{figure}
+
+
+\vspace{-2mm}
+\section{Conclusion}
+
+This paper presents a novel framework to provide provable probabilistic guarantees for YOLO-based object detection systems against specific threats(e.g. Object Disappear, False Appearance) under various perturbation distributions, a key step toward trustworthy deployment. Our contributions are threefold: (i) a formal definition of the OD verification problem, (ii) a practical three-stage methodology that explicitly incorporates formal analysis of NMS, and (iii) strong probabilistic guarantees for the full pipeline. Experiments on multiple YOLO architectures and distributions
+show that our approach delivers reliable safety assurances and achieves tighter certified IoU bounds with far greater sample efficiency than prior methods.
+\newline
+\textbf{Limitations and Future Directions:} 
+Our method relies on an assumed distribution of input perturbations, a limitation inherent to the PAC framework. Developing verification methods for other types of attacks remains an important direction for future work. Another valuable direction involves leveraging adversarial attack strategies to further refine Stages 1 and 3, alongside investigating more efficient methods for interval estimation and refinement.
+
+
+
+
+\section*{Impact Statement}
+
+Authors are \textbf{required} to include a statement of the potential broader
+impact of their work, including its ethical aspects and future societal
+consequences. This statement should be in an unnumbered section at the end of
+the paper (co-located with Acknowledgements -- the two may appear in either
+order, but both must be before References), and does not count toward the paper
+page limit. In many cases, where the ethical impacts and expected societal
+implications are those that are well established when advancing the field of
+Machine Learning, substantial discussion is not required, and a simple
+statement such as the following will suffice:
+
+``This paper presents work whose goal is to advance the field of Machine
+Learning. There are many potential societal consequences of our work, none
+which we feel must be specifically highlighted here.''
+
+The above statement can be used verbatim in such cases, but we encourage
+authors to think about whether there is content which does warrant further
+discussion, as this statement will be apparent if the paper is later flagged
+for ethics review.
+
+% In the unusual situation where you want a paper to appear in the
+% references without citing it in the main text, use \nocite
+\nocite{langley00}
+
+\bibliography{example_paper}
+\bibliographystyle{icml2026}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% APPENDIX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\appendix
+\onecolumn
+\section{You \emph{can} have an appendix here.}
+
+You can have as much text here as you want. The main body must be at most $8$
+pages long. For the final version, one more page can be added. If you want, you
+can use an appendix like this one.
+
+The $\mathtt{\backslash onecolumn}$ command above can be kept in place if you
+prefer a one-column appendix, or can be removed if you prefer a two-column
+appendix.  Apart from this possible change, the style (font size, spacing,
+margins, page numbering, etc.) should be kept the same as the main body.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+
+% This document was modified from the file originally made available by
+% Pat Langley and Andrea Danyluk for ICML-2K. This version was created
+% by Iain Murray in 2018, and modified by Alexandre Bouchard in
+% 2019 and 2021 and by Csaba Szepesvari, Gang Niu and Sivan Sabato in 2022.
+% Modified again in 2023 and 2024 by Sivan Sabato and Jonathan Scarlett.
+% Previous contributors include Dan Roy, Lise Getoor and Tobias
+% Scheffer, which was slightly modified from the 2010 version by
+% Thorsten Joachims & Johannes Fuernkranz, slightly modified from the
+% 2009 version by Kiri Wagstaff and Sam Roweis's 2008 version, which is
+% slightly modified from Prasad Tadepalli's 2007 version which is a
+% lightly changed version of the previous year's version by Andrew
+% Moore, which was in turn edited from those of Kristian Kersting and
+% Codrina Lauth. Alex Smola contributed to the algorithmic style files.
