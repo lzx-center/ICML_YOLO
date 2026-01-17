@@ -1,0 +1,19 @@
+\begin{tabular}
+{lcccccc}
+\toprule
+\multirow{2}{*}{model} & \multirow{2}{*}{$\varepsilon$} & \multirow{2}{*}{method} & \multicolumn{2}{c}{$\Delta_{\mathrm{PGD}}$} & \multicolumn{2}{c}{CRA}\\
+ &  &  & ${\tau=0.5}$ & ${\tau=0.7}$ & ${\tau=0.5}$ & ${\tau=0.7}$\\
+\midrule
+\multirow{6}{*}{yolo11x}  & \multirow{3}{*}{1/255}  & $\mathrm{RCP}_{N}$  & 0.45  & 0.47  & \textbf{1.00}  & \textbf{1.00} \\ 
+
+ &  & ODPV  & \textbf{0.42}  & \textbf{0.40}  & 0.99  & 0.98 \\ 
+
+ &  & MS  & 0.44  & 0.45  & 0.99  & 0.98 \\ 
+\addlinespace
+ & \multirow{3}{*}{2/255}  & $\mathrm{RCP}_{N}$  & 0.59  & 0.56  & \textbf{1.00}  & \textbf{1.00} \\ 
+
+ &  & ODPV  & \textbf{0.54}  & \textbf{0.47}  & \textbf{1.00}  & \textbf{1.00} \\ 
+
+ &  & MS  & 0.59  & 0.53  & 0.96  & 0.97 \\ 
+\bottomrule
+\end{tabular}
