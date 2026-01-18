@@ -228,14 +228,14 @@ Current efforts mainly focus on small or simplified detectors. \citep{cohen2024v
     \centering
     \begin{minipage}[t]{0.32\columnwidth}
       \includegraphics[width=\columnwidth,trim=0 160 0 0, clip]{image/stop_before_nms.jpg}
-      \caption{(First Stage) The network tries to find all boxes that may contain objects. A subset of these boxes is shown here.}
+      \caption{First Stage: The network tries to find all boxes that may contain objects. A subset of these boxes is shown here.}
       \label{fig:image1}
     \end{minipage}
     \hfill % 用于两幅图像之间的空间
     % 第二幅图像
     \begin{minipage}[t]{0.32\columnwidth}
       \includegraphics[width=\columnwidth,trim=0 160 0 0, clip]{image/stop_after_nms.jpg}
-      \caption{(Second Stage) Final output boxes selected by NMS include the corresponding label and its confidence score.}
+      \caption{Second Stage: Final output boxes selected by NMS include the corresponding label and its confidence score.}
       \label{fig:image2}
     \end{minipage}
     \hfill
@@ -317,12 +317,12 @@ First, we formally define the OD PAC-Verification problem.
 
 \label{idea}
 
-\begin{figure*}[t]
+\begin{figure}[t]
     \centering
-    \includegraphics[page=1,width=\textwidth, clip, trim=0 115 0 98]{image/framework.pdf}
+    \includegraphics[page=1,width=\columnwidth, clip, trim=0 115 0 98]{image/framework.pdf}
     \caption{Our verification framework for object detection networks. The green cube represents the network's \textbf{true but unknown output space} under input constraints. The yellow cube is the \textbf{over-approximated region} calculated by our method, which is probabilistically guaranteed to contain the true output space. Part 3 of our framework (Refinement) progressively shrinks the yellow region by identifying and excluding areas that do not intersect with the true output space, thereby tightening the verification bounds.}
     \label{fig: framework}
-\end{figure*}
+\end{figure}
 
 Then, we propose a three-part verification framework (see Alg.~\ref{alg: framework} and Fig.~\ref{fig: framework}) to solve it:
 
@@ -491,24 +491,61 @@ The following lemmas about $\tau(i,\mathcal{Z},box_{\mathrm{gt}})$ can help us c
 \end{lemma}
 We can obtain $\tau(i,\mathcal{Z},box_{\mathrm{gt}})$ by solving the following optimization problem:
 
+% \begin{lemma}[Threshold Computation]
+%     \label{lemma: threshold_computaion_2} 
+%     The threshold can be calculated as
+%     $\tau(i,\mathcal{Z},box_{\mathrm{gt}}) = \min\{\tau_1(i,\mathcal{Z},box_{\mathrm{gt}}),{\tau}_2(i,\mathcal{Z},box_{\mathrm{gt}})\}$, where:
+%     \begin{align*}
+%     \tau_1(i,\mathcal{Z},box_{\mathrm{gt}}) &= \min_{k\in\Delta} \mathrm{IoU}(box^k_i,box_{\mathrm{gt}}) \cdot \mathbb{I}(\mathrm{Class}(box_i^k)=q) \cdot \mathbb{I}(c^k_i\ge\iota), q=\mathrm{Class}(box_{\mathrm{gt}}) \\
+%     {\tau}_2(i,\mathcal{Z},box_{\mathrm{gt}}) &= \begin{cases} 
+%     \min\limits_{k\in\Delta, n\neq i} \mathrm{IoU}(box^k_n,box_{\mathrm{gt}}) & \text{if } \exists (k,n) \text{ s.t. } \mathcal{C}_{kn}=1 \\
+%     1 & \text{otherwise}
+%     \end{cases}
+%     \end{align*}
+%     where constraint $\mathcal{C}_{kn} \equiv \mathbb{I}(c^k_n\ge\iota)\cdot\mathbb{I}(\mathrm{Class}(box_n^k)=q)\cdot\mathbb{I}(\mathrm{IoU}(box^k_i,box^k_n)\ge\eta)\cdot\mathbb{I}(c^k_{n}\ge c^k_{i})$.
+% \end{lemma}
+
 \begin{lemma}[Threshold Computation]
-    \label{lemma: threshold_computaion_2} 
-    The threshold can be calculated as
-    $\tau(i,\mathcal{Z},box_{\mathrm{gt}}) = \min\{\tau_1(i,\mathcal{Z},box_{\mathrm{gt}}),{\tau}_2(i,\mathcal{Z},box_{\mathrm{gt}})\}$, where:
-    \begin{align*}
-    \tau_1(i,\mathcal{Z},box_{\mathrm{gt}}) &= \min_{k\in\Delta} \mathrm{IoU}(box^k_i,box_{\mathrm{gt}}) \cdot \mathbb{I}(\mathrm{Class}(box_i^k)=q) \cdot \mathbb{I}(c^k_i\ge\iota), q=\mathrm{Class}(box_{\mathrm{gt}}) \\
-    {\tau}_2(i,\mathcal{Z},box_{\mathrm{gt}}) &= \begin{cases} 
-    \min\limits_{k\in\Delta, n\neq i} \mathrm{IoU}(box^k_n,box_{\mathrm{gt}}) & \text{if } \exists (k,n) \text{ s.t. } \mathcal{C}_{kn}=1 \\
-    1 & \text{otherwise}
-    \end{cases}
-    \end{align*}
-    where constraint $\mathcal{C}_{kn} \equiv \mathbb{I}(c^k_n\ge\iota)\cdot\mathbb{I}(\mathrm{Class}(box_n^k)=q)\cdot\mathbb{I}(\mathrm{IoU}(box^k_i,box^k_n)\ge\eta)\cdot\mathbb{I}(c^k_{n}\ge c^k_{i})$.
+\label{lemma: threshold_computaion_2}
+The threshold can be calculated as
+\[
+\tau(i,\mathcal{Z},box_{\mathrm{gt}})
+= \min\big\{\tau_1(i,\mathcal{Z},box_{\mathrm{gt}}),\,\tau_2(i,\mathcal{Z},box_{\mathrm{gt}})\big\},
+\]
+where $q=\mathrm{Class}(box_{\mathrm{gt}})$ and
+\begin{align*}
+\tau_1(i,\mathcal{Z},box_{\mathrm{gt}})
+&\triangleq
+\min_{k\in\Delta}
+\mathrm{IoU}(box_i^k,box_{\mathrm{gt}})\cdot
+\mathbb{I}_{\mathrm{valid}}(k,i)
+\end{align*}
+\begin{align*}
+\hat{\tau}_2(i,\mathcal{Z},box_{\mathrm{gt}})
+&\triangleq
+\mathop{\inf}\limits_{\substack{k\in\Delta\\ n\neq i\\ \mathbb{I}_{\mathrm{conf}}(k,n,i)=1}}
+\mathrm{IoU}(box_n^k,box_{\mathrm{gt}}),\\
+\tau_2(i,\mathcal{Z},box_{\mathrm{gt}})
+&\triangleq \min\big\{1,\,\hat{\tau}_2(i,\mathcal{Z},box_{\mathrm{gt}})\big\},
+\end{align*}
+Here the indicator terms are defined as
+\begin{align*}
+\mathbb{I}_{\mathrm{valid}}(k,i)
+\triangleq&
+\mathbb{I}_{\mathrm{Class}}(box_i^k)\cdot
+\mathbb{I}(c_i^k\ge\iota),\\
+\mathbb{I}_{\mathrm{conf}}(k,n,i)
+\triangleq&
+\mathbb{I}(c_n^k\ge\iota)\cdot
+\mathbb{I}_{\mathrm{Class}}(box_i^k) \\
+&\cdot\mathbb{I}(\mathrm{IoU}(box_i^k,box_n^k)\ge\eta)\cdot
+\mathbb{I}(c_n^k\ge c_i^k).
+\end{align*}
 \end{lemma}
+
 Appendix~\ref{app:nms} shows how we encode the optimization problem in line~\ref{line: tau} of Algorithm~\ref{NMSyz} as a mixed-integer quadratic program (MIQP) and use the Gurobi solver to solve it. 
 
-\vspace{-2mm}
 \subsection{Implementation Part 3 on YOLO}
-\vspace{-2mm}
 \label{pt2}
 
 Part 3 of our framework refines the initial output approximation $\mathcal{Z}$. 
@@ -566,9 +603,7 @@ For any $\alpha,\beta,\delta,\epsilon\in(0,1)$ satisfying $(1-2\epsilon)^M-\delt
 We also provide a sound refinement algorithm for small networks, shown in Appendix~\ref{app:part3}.
 
 
-\vspace{-2mm}
 \subsection{The Probabilistic Guarantee for the Entire Algorithm}
-\vspace{-2mm}
 
 We prove that the whole algorithm implemented above has a probabilistic guarantee as follows, by combining proposition \ref{prop: prob_guaranee_for_part_1_1}, \ref{prop: sound_verification_2} and theorem \ref{theorem: part_3_guarantee_1}:
 
@@ -583,9 +618,6 @@ If we take $N_1 = 30{,}000,N_2 = 5{,}000,N = 3{,}000,M = 10,M_2 = 2{,}000,\alpha
 \begin{remark}\label{remark: total_samples}
 Note all our theoretical guarantees depend only on the i.i.d. assumption and hold for any sampling distribution, not just uniform.
 \end{remark}
-
-\section{Experiments}\label{section: experiment}
-Our experiment consists of the evaluations of the bounds accuracy and the safety guarantee. Detailed experimental settings and more experimental results are provided in Appendix~\ref{app:exp details} to Appendix~\ref{app:ablation}.
 
 
 \begin{table*}[t]
@@ -607,6 +639,11 @@ Our experiment consists of the evaluations of the bounds accuracy and the safety
     \label{tab:guarantee}
     \input{data/tpr_fpr_table.tex}
 \end{table*}
+
+
+\section{Experiments}\label{section: experiment}
+Our experiment consists of the evaluations of the bounds accuracy and the safety guarantee. Detailed experimental settings and more experimental results are provided in Appendix~\ref{app:exp details} to Appendix~\ref{app:ablation}.
+
 
 \textbf{Basic setting.} 
 Our experiments used the medium and large versions of the YOLOv3, YOLOv5, YOLOv8 and YOLO11 models by Ultralytics~\citep{yolov5ultralytics}. We conduct verification on the COCO dataset~\citep{lin2014microsoft}, a widely used benchmark for object detection, and randomly select 100 validation images containing more than 520 objects. We use a uniform distribution for sampling, which is a common choice in the literature~\citep{li2022towards,cohen2024verification}. 
@@ -630,7 +667,7 @@ We further evaluate (i) the effect of Part~3 (Appendix~\ref{app:part3 effect}),
 and (iv) a comparison with median smoothing (Appendix~\ref{app:median}).
 
 
-\begin{figure}
+\begin{figure}[t]
     \centering
     \includegraphics[width=\linewidth, clip, trim=60 146 76 164]{image/bound compare.pdf}
     \caption{Lower bounds of the IoU between detected boxes and their corresponding ground-truth boxes under our method, $\mathrm{RCP}_N$, the square attack, and the PGD attack. Results are computed on YOLO11x with $\varepsilon=\tfrac{1}{255}$ and $\tau=0.5$. Each x-axis tick corresponds to an object in the COCO dataset.}
@@ -638,7 +675,6 @@ and (iv) a comparison with median smoothing (Appendix~\ref{app:median}).
 \end{figure}
 
 
-\vspace{-2mm}
 \section{Conclusion}
 
 This paper presents a novel framework to provide provable probabilistic guarantees for YOLO-based object detection systems against specific threats(e.g. Object Disappear, False Appearance) under various perturbation distributions, a key step toward trustworthy deployment. Our contributions are threefold: (i) a formal definition of the OD verification problem, (ii) a practical three-stage methodology that explicitly incorporates formal analysis of NMS, and (iii) strong probabilistic guarantees for the full pipeline. Experiments on multiple YOLO architectures and distributions
