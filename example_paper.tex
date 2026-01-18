@@ -277,15 +277,17 @@ The NMS-selected subset is unique and we focus on its properties, as implementat
 An object detection model successfully detects an object \(O\) in the image \(\boldsymbol{x}\) if there exists at least one \(box_i \in \mathrm{N}(\F(\boldsymbol{x}))\) satisfying:
 \(
 \mathrm{Class}(box_i) = \mathrm{Class}(box_{\mathrm{gt}})\) and \(\mathrm{IoU}(box_i, box_{\mathrm{gt}}) \geq \tau
-\), where \(\tau\) is a predefined IoU threshold and \(box_{\mathrm{gt}}\) is \(O\)'s ground truth bounding box. We define the OD threat as follows:
+\), 
+where \(\tau\) is a predefined IoU threshold and \(box_{\mathrm{gt}}\) is \(O\)'s ground truth bounding box. We define the OD threat as follows:
 
 \textbf{OD Threat Definition.} 
 Given ground truth box $box_{\mathrm{gt}}$, perturbation radius $\varepsilon$, IoU threshold $\tau$, and class $\mathrm{Class}(box_{\mathrm{gt}})$, OD occurs if there exists a perturbation $\boldsymbol{\delta}$ with $\|\boldsymbol{\delta}\|_p\le \varepsilon$ such that
-\[
+\begin{equation*}
 \max_{box_i \in \mathrm{N}(\F(\boldsymbol{x}+\boldsymbol{\delta}))}
-\Big[\mathrm{IoU}(box_i, box_{\mathrm{gt}})\cdot \mathbb{I}\left(\mathrm{Class}(box_i)=\mathrm{Class}(box_{\mathrm{gt}})\right)\Big] < \tau .
-\]
-where \(\mathbb{I}(\cdot)\) denotes an indicator function (returns $1$ if true, \(0\) otherwise).  
+\Big[\mathrm{IoU}(box_i, box_{\mathrm{gt}})\cdot \mathbb{I}_{\mathrm{Class}}(box_i)\Big] < \tau,
+\end{equation*}
+
+where $\mathbb{I}_{\mathrm{Class}}(box_i) \triangleq \mathbb{I}(\mathrm{Class}(box_i) = \mathrm{Class}(box_{\mathrm{gt}}))$, and \(\mathbb{I}(\cdot)\) denotes an indicator function (returns $1$ if true, \(0\) otherwise).  
 
 
 
@@ -297,7 +299,19 @@ First, we formally define the OD PAC-Verification problem.
 \begin{definition}[OD PAC-Verification Problem]  
     \label{def: od_verification_problem_1}  
     Given input constraints \(\mathcal{C}\), IoU threshold \(\tau\), error rate $\alpha\in[0,1]$ and significance level $\beta\in[0,1]$ and ground truth box \(box_{\mathrm{gt}}\), verify whether with confidence at least $1-\beta$, the following holds:
-    $$\mathrm{P}_{\boldsymbol{x}\sim \mathcal{C}}\left(\exists box_i \in \mathrm{N}(\F(\boldsymbol{x})) \text{ s.t. } \left[ \mathrm{IoU}(box_i, box_{\mathrm{gt}}) \geq \tau \land \mathrm{Class}(box_i) = \mathrm{Class}(box_{\mathrm{gt}}) \right] \right) \ge 1-\alpha$$
+    \begin{equation*}
+    \mathrm{P}_{\boldsymbol{x}\sim \mathcal{C}}\!\left(
+    \exists\, box_i \in \mathrm{N}(\F(\boldsymbol{x})) \ \text{s.t.}\
+    \mathbb{I}_{\text{OD}}(box_i)=1
+    \right) \ge 1-\alpha ,
+    \end{equation*}
+    where
+    $
+    \mathbb{I}_{\text{OD}}(box_i) \triangleq
+    \mathbb{I}\!\left(
+    \mathrm{IoU}(box_i, box_{\mathrm{gt}})\mathbb{I}_{\mathrm{Class}}(box_i)\ge \tau \right).
+    $
+
     If true, the system is deemed PAC-safe in \(\mathcal{C}\) under \(\tau\). This definition reduces to the OD Formal Verification Problem when $\alpha=0,\beta=0$. Here we use $\boldsymbol{x}\sim \mathcal{C}$ to denote that $\boldsymbol{x}$ is sampled from a distribution over the input constraint set $\mathcal{C}$.
 \end{definition} 
 
@@ -401,8 +415,10 @@ Since each constraint is convex for $c$, by the $\mathrm{RCP}_N$~\citep{campi200
 \label{RC1}
         % c_1= \min_{c\ge0} c \ \
         % \mathrm{s.t.} \ \ c\in \cap_{i\in[N_2]}\{|\F(\boldsymbol{x}^{(i)})-\F(\boldsymbol{x}^{(0)})|\le c\boldsymbol{v}_{\max}\}
-        c_1 = \min_{c\ge0} c \quad
-\mathrm{s.t.} \quad |\F(\boldsymbol{x}^{(i)})-\F(\boldsymbol{x}^{(0)})|\le c\boldsymbol{v}_{\max}, \quad \forall i \in [N_2].
+\begin{aligned}
+    c_1 = &\min_{c\ge0} c  \\
+          & \mathrm{s.t.} \quad |\F(\boldsymbol{x}^{(i)})-\F(\boldsymbol{x}^{(0)})|\le c\boldsymbol{v}_{\max}, \forall i \in [N_2]
+\end{aligned}
 \end{equation}
 
 
@@ -635,29 +651,7 @@ Our method relies on an assumed distribution of input perturbations, a limitatio
 
 
 \section*{Impact Statement}
-
-Authors are \textbf{required} to include a statement of the potential broader
-impact of their work, including its ethical aspects and future societal
-consequences. This statement should be in an unnumbered section at the end of
-the paper (co-located with Acknowledgements -- the two may appear in either
-order, but both must be before References), and does not count toward the paper
-page limit. In many cases, where the ethical impacts and expected societal
-implications are those that are well established when advancing the field of
-Machine Learning, substantial discussion is not required, and a simple
-statement such as the following will suffice:
-
-``This paper presents work whose goal is to advance the field of Machine
-Learning. There are many potential societal consequences of our work, none
-which we feel must be specifically highlighted here.''
-
-The above statement can be used verbatim in such cases, but we encourage
-authors to think about whether there is content which does warrant further
-discussion, as this statement will be apparent if the paper is later flagged
-for ethics review.
-
-% In the unusual situation where you want a paper to appear in the
-% references without citing it in the main text, use \nocite
-\nocite{langley00}
+Our method focuses on verifying the safety of the object detection model, which may help people to better understand the model and give a safety metric. We do not think there is a negative social impact of our method as our method is not used to attack the model. 
 
 \bibliography{example_paper}
 \bibliographystyle{icml2026}

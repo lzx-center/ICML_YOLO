@@ -43,7 +43,7 @@ This appendix provides more related work, supplementary discussions, proofs, and
 
     \item \textbf{Section~\ref{app:ablation}}: Presents an ablation study on parameters $\eta$ and $\iota$.  
 
-    \item \textbf{Section~\ref{app:border}}: Discusses the broader impact of our verification method.  
+    % \item \textbf{Section~\ref{app:border}}: Discusses the broader impact of our verification method.  
 
     \item \textbf{Section~\ref{app:llm}} : LLM Usage Statement.
     
@@ -1102,10 +1102,10 @@ Table~\ref{tab:median} compares our method with median smoothing (MS)~\citep{coh
 Fig.~\ref{fig:ablation} shows the ablation study of parameters $\eta$ and $\iota$. The results show that our method still maintains more accurate bounds than $\mathrm{RCP}_N$ under different parameters. Besides, the results show that a larger $\eta$ and a larger $\iota$ will lead the bounds to be closer to the worst-case bound found by PGD attack. This is because a larger $\eta$ and a larger $\iota$ will results in a stricter NMS condition, fewer boxes can remain and the resulting boxes will be more robust.
 
 
-\section{Broader Impact}
-\label{app:border}
+% \section{Broader Impact}
+% \label{app:border}
 
-Our method focuses on verifying the safety of the object detection model, which may help people to better understand the model and give a safety metric. We do not think there is a negative social impact of our method as our method is not used to attack the model. 
+% Our method focuses on verifying the safety of the object detection model, which may help people to better understand the model and give a safety metric. We do not think there is a negative social impact of our method as our method is not used to attack the model. 
 
 
 \section{LLM Usage Statement}
