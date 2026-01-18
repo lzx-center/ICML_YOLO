@@ -63,12 +63,12 @@
 % \newtheorem{lemma}{Lemma}
 % \newtheorem{remark}{Remark}
 % % 没编号的theorem等
-% \newtheorem*{theorem*}{Theorem}
-% \newtheorem*{prop*}{Proposition}  % 继承 theorem 计数器
-% \newtheorem*{coro*}{Corollary} % 同上
-% \newtheorem*{lemma*}{Lemma}
-% \newtheorem*{remark*}{Remark}
-% \newtheorem*{definition*}{Definition}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{prop*}{Proposition}  % 继承 theorem 计数器
+\newtheorem*{coro*}{Corollary} % 同上
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{definition*}{Definition}
 \def\R{{\mathbb{R}}}
 \def\F{{\mathrm{F}}}
 \def\Z{{\mathrm{Z}}}
@@ -576,7 +576,7 @@ Our experiment consists of the evaluations of the bounds accuracy and the safety
 \centering
 \caption{Comparison of our method with $\mathrm{RCP}_N$. $\Delta_{\mathrm{PGD}}$ denotes the mean absolute difference of IoU lower bounds relative to the PGD attack. Bold values indicate the best performance.}
 \label{tab:main}
-\small
+% \small
 \input{data/overview.tex}
 \end{table*}
 
@@ -670,19 +670,7 @@ for ethics review.
 \newpage
 \appendix
 \onecolumn
-\section{You \emph{can} have an appendix here.}
-
-You can have as much text here as you want. The main body must be at most $8$
-pages long. For the final version, one more page can be added. If you want, you
-can use an appendix like this one.
-
-The $\mathtt{\backslash onecolumn}$ command above can be kept in place if you
-prefer a one-column appendix, or can be removed if you prefer a two-column
-appendix.  Apart from this possible change, the style (font size, spacing,
-margins, page numbering, etc.) should be kept the same as the main body.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\input{appendix.tex}
 \end{document}
 
 % This document was modified from the file originally made available by
